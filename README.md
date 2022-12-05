@@ -1,61 +1,32 @@
-# mish
-A minimal shell written in C
+Mish — A minimal linux shell written in C.
 
-## Installation
-run `make` in the shell directory.
-then run `./sh`.
+Why another shell? I wanted a minimal clean and simple shell. It has all the features most users would use and gets its done in a tiny package.
 
-## Features
-* cd - change directories to navigate the file system
-* pwd - print the current working directory
-* echo - print the arguments passed to it
-* ls - list all files and sub directories inside a directory.
-* discover - minimal find
-* history - stores 20 of the previous commands
-* pinfo - prints basic process info
-* all system commands
-* foreground and background processes
-* job control (jobs, fg, bg, sig)
-* autocompletion for folders and files
-* input and output redirection
-* pipes ('|') between commands
+![image](https://user-images.githubusercontent.com/94549325/205668858-a7c8850c-1bfe-4776-a5fe-6adc3195629b.png)
 
-## Work
-### sh.c
-Contains the main logic of the program, it also has an `init()` function which sets up various shell related conditions.
+# Install
+1. Clone the git-repo with
+```
+git clone https://github.com/vnnm404/mish
+```
 
-### core.c
-Contains cd, pwd, echo and ls, are considered to be at the core of the shell
+2. `cd` into the mish directory created
+```
+cd mish
+```
 
-### history.c, pinfo.c, discover.c
-contains the code of the command they are named after
+3. run `make`
+```
+make
+```
 
-### utils.c
-contains routines to various convenience functions like `trim()` etc.
-also contains the main parser and task execution.
-also contains functions to redirect input and piping.
+# Usage
+To start the shell, simply run the executable created by running `make`.
+```
+./sh
+```
 
-### list.c
-contains a singly linked list implementation for message queues and process queues.
-also has field such as stopped and terminated for job control.
+The directory in which the shell is spawned is considered the `$HOME` directory and thats what `~` refers to.
 
-### prompt.c
-displays the prompt that asks the user for input
-
-### jobs.c, fg.c, bg.c, sig.c
-implements the respective command
-
-## Assumptions
-* LS_BLOCK_RATIO: 2 - the size of an ls block to the size of a system block (512B)
-* CMD_MAX: 4096 - the maximum cmd length
-* PATH_MAX: 4096 - maximum path length (system dependent)
-* HOSTNAME_MAX: 256 - max hostname length (system dependent)
-* TIME_MAX: 4096 - any time is atmost 4096 bytes long
-* BG_MAX: 512 - the maximum number of background processes
-* PROMPT_MAX: PATH_MAX + HOSTNAME_MAX - sum of path length (to display PATH_MAX) and hostname (to display HOSTNAME_MAX).
-* Termination messages when a background process ends are queued and are outputted before the shell asks for its next prompt. The order of these messages do not matter.
-* The number of files to be searched for in discover will always be one.
-* When running a background process, the number in [ <number here> ] square brackets is the number of currently running background processes.
-* Ctrl-C exits only terminates the current process and not all the process in a process chain. This is true for commands in a pipeline as well.
-* only valid input will be given, anything invalid will lead to undefined behaviour when using pipes or redirection.
-* always use the terminal in full screen, the behavious of autocompletion is undefined when the number of files printed is greater than terminal height.
+# Features
+Has all the good stuff a modern shell would have, minimal bash autocompletion with `<Tab>`, piping and redirection, job control and foreground-background processes, ctrl-c and ctrl-z implementations and command history. In short it has everything most people would need out of a shell and all in 56kb!
