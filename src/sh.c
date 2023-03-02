@@ -52,7 +52,7 @@ void killall_bg();
 void z_handle_sig();
 void c_handle_sig();
 
-int main(int argc, char *argv) {
+int main(int argc, char **argv) {
     init();
 
     while (1) {
